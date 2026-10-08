@@ -1,4 +1,3 @@
-
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -64,14 +63,18 @@ def calcular_medidas_centrais(data, coluna):
     return media, mediana, moda
 
 # gráfico de colunas
+# gráfico de colunas (com porcentagem em cima de cada coluna)
 def grafico_colunas(df, coluna):
     df = df.sort_values(by=coluna)
 
     categorias = df[coluna].astype(str)
     quantidades = df['Quantidade']
+    percentuais = df['Frequência Relativa (%)']
 
     plt.figure(figsize=(12, 6))
-    plt.bar(categorias, quantidades, color='mediumblue')
+    barras = plt.bar(categorias, quantidades, color='mediumblue')
+    plt.bar_label(barras, labels=[f'{p:.1f}%' for p in percentuais], padding=3, fontsize=8)
+    plt.ylim(0, quantidades.max() * 1.1)   # folga para o texto da maior coluna não cortar
     plt.title(f'{coluna} (Gráfico de Colunas)')
     plt.xlabel(coluna)
     plt.ylabel('Quantidade')
@@ -82,14 +85,18 @@ def grafico_colunas(df, coluna):
 
 
 # gráfico de barras
+# gráfico de barras (com porcentagem ao lado de cada barra)
 def grafico_barras(df, coluna):
     df = df.sort_values(by=coluna)
 
     categorias = df[coluna].astype(str)
     quantidades = df['Quantidade']
+    percentuais = df['Frequência Relativa (%)']
 
     plt.figure(figsize=(10, 8))
-    plt.barh(categorias, quantidades, color='lightgreen')
+    barras = plt.barh(categorias, quantidades, color='lightgreen')
+    plt.bar_label(barras, labels=[f'{p:.1f}%' for p in percentuais], padding=3, fontsize=8)
+    plt.xlim(0, quantidades.max() * 1.12)   # folga para o texto da maior barra não cortar
     plt.title(f'{coluna} (Gráfico de Barras)')
     plt.xlabel('Quantidade')
     plt.ylabel(coluna)
@@ -129,25 +136,25 @@ def grafico_histograma(data, coluna):
 
 
 def main():
-    data = pd.read_excel('aaa.xlsx') # substituir pelo nome da planilha analisada
+    data = pd.read_excel('dataset_final.xlsx') # substituir pelo nome da planilha analisada
 
     # substituir o segundo parâmetro de cada função pela análise desejada
 
     # tabela de frequência
-    df = calcular_frequencias(data, 'Ano de Lançamento')
-    salvar_tabela_frequencias_imagem(df, 'Ano de Lançamento')
+    df = calcular_frequencias(data, 'UF')
+    salvar_tabela_frequencias_imagem(df, 'UF')
 
     # medidas de tendência central
     calcular_medidas_centrais(data, 'Minutos')
 
     # gráficos de frequência
-    grafico_colunas(df, 'Ano de Lançamento')
-    grafico_barras(df, 'Ano de Lançamento')
-    grafico_setores(df, 'Ano de Lançamento')
+    grafico_colunas(df, 'UF')
+    grafico_barras(df, 'UF')
+    grafico_setores(df, 'UF')
 
     # boxplot e histograma
-    grafico_boxplot(data, 'Minutos')
-    grafico_histograma(data, 'Minutos')
+    grafico_boxplot(data, 'UF')
+    grafico_histograma(data, 'UF')
 
 
 if __name__ == '__main__':
