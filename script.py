@@ -141,20 +141,20 @@ def main():
     # substituir o segundo parâmetro de cada função pela análise desejada
 
     # tabela de frequência
-    df = calcular_frequencias(data, 'UF')
-    salvar_tabela_frequencias_imagem(df, 'UF')
+    df = calcular_frequencias(data, 'Gênero')
+    salvar_tabela_frequencias_imagem(df, 'Gênero')
 
     # medidas de tendência central
-    calcular_medidas_centrais(data, 'Minutos')
+    calcular_medidas_centrais(data, 'Gênero')
 
     # gráficos de frequência
-    grafico_colunas(df, 'UF')
-    grafico_barras(df, 'UF')
-    grafico_setores(df, 'UF')
+    grafico_colunas(df, 'Gênero')
+    grafico_barras(df, 'Gênero')
+    grafico_setores(df, 'Gênero')
 
     # boxplot e histograma
-    grafico_boxplot(data, 'UF')
-    grafico_histograma(data, 'UF')
+    grafico_boxplot(data, 'Gênero')
+    grafico_histograma(data, 'Gênero')
 
 
 if __name__ == '__main__':
